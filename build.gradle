@@ -2,7 +2,7 @@ group 'SynloadFramework2'
 version '2.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'com.palantir.jacoco-coverage'
+apply plugin: 'jacoco'
 
 sourceCompatibility = 1.5
 
@@ -19,11 +19,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.eclipse.jetty.spdy/spdy-http-server
     compile group: 'org.eclipse.jetty.spdy', name: 'spdy-http-server', version: '9.3.0.M1'
 }
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.palantir:jacoco-coverage:0.4.0'
+jacocoTestReport {
+    reports {
+        xml.enabled true
     }
 }

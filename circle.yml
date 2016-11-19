@@ -3,7 +3,7 @@ dependencies:
     - chmod 0755 ./gradlew
 test:
   override:
-    - ./gradlew test
+    - ./gradlew test jacocoTestReport
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/reports/
     - cp ./build/test-results/*.xml $CIRCLE_TEST_REPORTS/reports/
