@@ -6,7 +6,7 @@ test:
     - ./gradlew test
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/reports/
-    - cp ./build/test-reports/*.xml $CIRCLE_TEST_REPORTS/reports/
+    - cp ./build/test-results/*.xml $CIRCLE_TEST_REPORTS/reports/
     - bash <(curl -s https://codecov.io/bash)
 notify:
   webhooks:
