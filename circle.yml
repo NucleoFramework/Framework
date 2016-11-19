@@ -1,6 +1,6 @@
 dependencies:
   override:
-    chmod 0755 ./gradlew
+    - chmod 0755 ./gradlew
 test:
   override:
     - ./gradlew test
