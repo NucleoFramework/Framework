@@ -3,7 +3,7 @@ dependencies:
     - chmod 0755 ./gradlew
 test:
   override:
-    - ./gradlew test jacocoTestReport allureReport
+    - ./gradlew clean test jacocoTestReport allureReport
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/reports/
     - mkdir -p $CIRCLE_TEST_REPORTS/allure/

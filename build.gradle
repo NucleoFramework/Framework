@@ -3,6 +3,7 @@ version '2.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
+apply plugin: 'ru.d10xa.allure'
 
 defaultTasks 'clean', 'test', 'jacocoTestReport', 'allureReport'
 
@@ -35,8 +36,6 @@ buildscript {
     }
 }
 
-apply plugin: 'ru.d10xa.allure'
-
 allure {
     aspectjweaver = true
 
@@ -46,5 +45,5 @@ allure {
     spock = false
 
     // Choose if you're using Geb for web tests
-    geb = true
+    geb = false
 }
