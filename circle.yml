@@ -3,10 +3,12 @@ dependencies:
     - chmod 0755 ./gradlew
 test:
   override:
-    - ./gradlew test jacocoTestReport
+    - ./gradlew test jacocoTestReport allureReport
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/reports/
+    - mkdir -p $CIRCLE_TEST_REPORTS/allure/
     - cp ./build/test-results/*.xml $CIRCLE_TEST_REPORTS/reports/
+    - cp -R ./build/allure-report/* $CIRCLE_TEST_REPORTS/allure/
     - bash <(curl -s https://codecov.io/bash)
 notify:
   webhooks:
