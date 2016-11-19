@@ -29,4 +29,36 @@ public class TrieNodeStringTest {
         assertEquals(a.nextString("test"), b);
     }
 
+    @Test
+    /*
+        Create 1 node check for non existent next node
+     */
+    public void testNodeStringAddNodeNullNext() throws Exception{
+        NodeString a = new NodeString(this.getClass().getMethod("testNodeStringMethodClass"));
+
+        assertNull(a.nextString("test"));
+    }
+
+    @Test
+    /*
+        Create 2 Nodes, add 1 node to another with the key "test" and make sure its there
+     */
+    public void testNodeStringAddNodeExistingEntry() throws Exception{
+        NodeString a = new NodeString(this.getClass().getMethod("testNodeStringMethodClass"));
+        NodeString b = new NodeString(this.getClass().getMethod("testNodeStringAddNode"));
+        NodeString c = new NodeString(this.getClass().getMethod("testNodeStringAddNodeNullNext"));
+        a.addNextNode(b,"test");
+
+        assertFalse(a.addNextNode(c,"test"));
+    }
+
+    @Test
+    /*
+        Create 2 Nodes, add 1 node to another with the key "test" and make sure its there
+     */
+    public void testNodeStringAddNodeCheckModule() throws Exception{
+        NodeString a = new NodeString(this.getClass().getMethod("testNodeStringMethodClass"));
+        
+        assertEquals(a.getMethod(),this.getClass().getMethod("testNodeStringMethodClass"));
+    }
 }
