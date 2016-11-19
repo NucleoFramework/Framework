@@ -1,0 +1,13 @@
+dependencies:
+  override:
+    chmod 0755 ./gradlew
+test:
+  override:
+    - ./gradlew test
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/reports/
+    - cp ./build/test-reports/*.xml $CIRCLE_TEST_REPORTS/reports/
+    - bash <(curl -s https://codecov.io/bash)
+notify:
+  webhooks:
+    - url: http://csumbse.net/harbormaster/hook/circleci/
