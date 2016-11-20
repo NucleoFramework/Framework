@@ -21,6 +21,9 @@ public class NodeString {
         }
         return null;
     }
+    public boolean addNextNodeMethod(String entry, Method m){
+        return addNextNode(new NodeString(m), entry);
+    }
     public boolean addNextNode(NodeString node, String entry){
         if(nodes.containsKey(entry)){
             return false;
