@@ -58,7 +58,7 @@ public class TrieNodeStringTest {
      */
     public void testNodeStringAddNodeCheckModule() throws Exception{
         NodeString a = new NodeString(this.getClass().getMethod("testNodeStringMethodClass"));
-        
+
         assertEquals(a.getMethod(),this.getClass().getMethod("testNodeStringMethodClass"));
     }
 }
