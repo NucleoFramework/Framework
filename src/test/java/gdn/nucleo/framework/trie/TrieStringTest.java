@@ -17,6 +17,36 @@ public class TrieStringTest {
     }
 
     @Test
+    public void testNoArgs() throws Exception{
+        TrieString cache = new TrieString();
+
+        assertFalse(cache.addToTree(this.getClass().getMethod("testEmptyTrie")));
+    }
+
+    @Test
+    public void testRepeatEntry() throws Exception{
+        TrieString cache = new TrieString();
+        cache.addToTree(this.getClass().getMethod("testNoArgs"), "power");
+
+        assertFalse(cache.addToTree(this.getClass().getMethod("testRepeatEntry"), "power"));
+    }
+
+    @Test
+    public void testNoMethod() throws Exception{
+        TrieString cache = new TrieString();
+        assertTrue(cache.addToTree(null, "power"));
+    }
+
+    @Test
+    public void testOutOfBoundTrieSearch() throws Exception{
+        TrieString cache = new TrieString();
+        
+        cache.addToTree(this.getClass().getMethod("testEmptyTrie"), "power");
+
+        assertNull(cache.buildChain("power", "top"));
+    }
+
+    @Test
     public void testDepthOne() throws Exception{
         TrieString cache = new TrieString();
 

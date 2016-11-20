@@ -29,12 +29,10 @@ public class TrieString {
                 }
             }else{
                 if((i+1)==size){
-                    if(!current.addNextNodeMethod(args[i], m))
-                        return false;
+                    current.addNextNodeMethod(args[i], m);
                     return true;
                 }else{
-                    if(!current.addNextNodeMethod(args[i], null))
-                        return false;
+                    current.addNextNodeMethod(args[i], null);
                     current = current.nextString(args[i]);
                 }
             }
