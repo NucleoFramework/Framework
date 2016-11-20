@@ -40,7 +40,7 @@ public class TrieStringTest {
     @Test
     public void testOutOfBoundTrieSearch() throws Exception{
         TrieString cache = new TrieString();
-        
+
         cache.addToTree(this.getClass().getMethod("testEmptyTrie"), "power");
 
         assertNull(cache.buildChain("power", "top"));
@@ -151,5 +151,27 @@ public class TrieStringTest {
         assertTrue(chainData.authed);
         assertTrue(chainData.execute);
 
+    }
+
+    @Test
+    public void testChainHasNext() throws Exception{
+        URITestHelper chainData = new URITestHelper();
+
+        TrieString cache = new TrieString();
+        Method a = URITestHelper.class.getMethod("getAuth");
+        Method b = URITestHelper.class.getMethod("getUser");
+        Method c = URITestHelper.class.getMethod("doAction");
+
+        assertTrue(cache.addToTree(a, "do", "this"));
+        assertTrue(cache.addToTree(c, "do", "this", "now", "this"));
+        assertTrue(cache.addToTree(b, "do", "this", "now"));
+
+        NodeChain nc = cache.buildChain("do", "this", "now", "this");
+        while(nc.hasNext()){
+            nc.next().method.invoke(chainData);
+        }
+        assertEquals( chainData.user, 5);
+        assertTrue(chainData.authed);
+        assertTrue(chainData.execute);
     }
 }
