@@ -1,4 +1,4 @@
-package gdn.nucleo.framework.trie;
+package gdn.nucleo.framework.lang.trie;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package gdn.nucleo.framework.trie;
+package gdn.nucleo.framework.lang.trie;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -13,7 +13,7 @@ public class TrieNodeStringTest {
     public void testNodeStringMethodClass() throws Exception{
         NodeString n = new NodeString(this.getClass().getMethod("testNodeStringMethodClass"));
 
-        assertEquals(n.getMethodClass().getName(),"gdn.nucleo.framework.trie.TrieNodeStringTest");
+        assertEquals(n.getMethodClass().getName(),"gdn.nucleo.framework.lang.trie.TrieNodeStringTest");
     }
 
     @Test

@@ -15,12 +15,9 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-server
-    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.0.RC1'
-    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
-    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.0.RC1'
-    // https://mvnrepository.com/artifact/org.eclipse.jetty.spdy/spdy-http-server
-    compile group: 'org.eclipse.jetty.spdy', name: 'spdy-http-server', version: '9.3.0.M1'
+    compile group: 'io.undertow', name: 'undertow-core', version: '1.4.0.CR3'
+    compile group: 'io.undertow', name: 'undertow-servlet', version: '1.4.0.CR3'
+    compile group: 'io.undertow', name: 'undertow-websockets-jsr', version: '1.4.0.CR3'
 }
 jacocoTestReport {
     reports {

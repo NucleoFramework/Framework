@@ -1,17 +1,16 @@
 package gdn.nucleo.framework;
 
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
+
+import gdn.nucleo.framework.http.HTTPServer;
 
 /**
  * Created by Nathaniel on 11/16/2016.
  */
 public class CoreServer {
     public static void main(String[] args) throws Exception{
-        Server server = new Server(8080);
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        server.setHandler(context);
-        server.start();
-        server.join();
+        HTTPServer server = new HTTPServer();
+        server.setup(8080, "0.0.0.0");
+        new Thread(server).start();
+        System.out.println("server started");
     }
 }
