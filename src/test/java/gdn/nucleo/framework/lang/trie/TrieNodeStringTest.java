@@ -13,7 +13,7 @@ public class TrieNodeStringTest {
     public void testNodeStringMethodClass() throws Exception{
         NodeString n = new NodeString(this.getClass().getMethod("testNodeStringMethodClass"));
 
-        assertEquals(n.getMethodClass().getName(),"gdn.nucleo.framework.lang.trie.TrieNodeStringTest");
+        assertEquals(n.getMethods().get(0).getDeclaringClass().getName(),"gdn.nucleo.framework.lang.trie.TrieNodeStringTest");
     }
 
     @Test
@@ -59,6 +59,6 @@ public class TrieNodeStringTest {
     public void testNodeStringAddNodeCheckModule() throws Exception{
         NodeString a = new NodeString(this.getClass().getMethod("testNodeStringMethodClass"));
 
-        assertEquals(a.getMethod(),this.getClass().getMethod("testNodeStringMethodClass"));
+        assertEquals(a.getMethods().get(0),this.getClass().getMethod("testNodeStringMethodClass"));
     }
 }

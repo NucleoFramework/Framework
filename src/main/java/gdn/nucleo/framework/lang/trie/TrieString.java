@@ -22,10 +22,8 @@ public class TrieString {
             if((tmp = current.nextString(args[i]))!=null){
                 current = tmp;
                 if((i+1)==size){
-                    if(tmp.getMethod()==null){
-                        tmp.method=m;
-                        return true;
-                    }
+                    tmp.method.add(m);
+                    return true;
                 }
             }else{
                 if((i+1)==size){
@@ -49,8 +47,8 @@ public class TrieString {
         int i=0;
         int size = args.length;
         while(i<size && (currentNode = currentNode.nextString(args[i]))!=null){
-            if(currentNode.getMethod()!=null) {
-                chain.addLink(currentNode.getMethod());
+            if(currentNode.getMethods().size()>0) {
+                chain.addLink(currentNode.getMethods());
             }
             i++;
         }

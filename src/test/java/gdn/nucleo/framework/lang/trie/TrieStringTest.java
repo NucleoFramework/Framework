@@ -26,9 +26,12 @@ public class TrieStringTest {
     @Test
     public void testRepeatEntry() throws Exception{
         TrieString cache = new TrieString();
+
         cache.addToTree(this.getClass().getMethod("testNoArgs"), "power");
 
-        assertFalse(cache.addToTree(this.getClass().getMethod("testRepeatEntry"), "power"));
+        assertTrue(cache.addToTree(this.getClass().getMethod("testRepeatEntry"), "power"));
+
+        assertEquals(cache.buildChain("power").next().method.size(),2);
     }
 
     @Test
@@ -90,9 +93,9 @@ public class TrieStringTest {
 
         NodeChain nc = cache.buildChain("do", "this", "now", "this");
 
-        assertEquals(nc.next().method, a);
-        assertEquals(nc.next().method, b);
-        assertEquals(nc.next().method, c);
+        assertEquals(nc.next().method.get(0), a);
+        assertEquals(nc.next().method.get(0), b);
+        assertEquals(nc.next().method.get(0), c);
     }
 
     @Test
@@ -108,9 +111,9 @@ public class TrieStringTest {
 
         NodeChain nc = cache.buildChain("do", "this", "now", "this");
 
-        assertEquals(nc.next().method, a);
-        assertEquals(nc.next().method, b);
-        assertEquals(nc.next().method, c);
+        assertEquals(nc.next().method.get(0), a);
+        assertEquals(nc.next().method.get(0), b);
+        assertEquals(nc.next().method.get(0), c);
     }
 
     public class URITestHelper{
@@ -143,9 +146,9 @@ public class TrieStringTest {
 
         NodeChain nc = cache.buildChain("auth", "user", "like");
 
-        nc.next().method.invoke(chainData);
-        nc.next().method.invoke(chainData);
-        nc.next().method.invoke(chainData);
+        nc.next().method.get(0).invoke(chainData);
+        nc.next().method.get(0).invoke(chainData);
+        nc.next().method.get(0).invoke(chainData);
 
         assertEquals( chainData.user, 5);
         assertTrue(chainData.authed);
@@ -168,7 +171,7 @@ public class TrieStringTest {
 
         NodeChain nc = cache.buildChain("do", "this", "now", "this");
         while(nc.hasNext()){
-            nc.next().method.invoke(chainData);
+            nc.next().method.get(0).invoke(chainData);
         }
         assertEquals( chainData.user, 5);
         assertTrue(chainData.authed);

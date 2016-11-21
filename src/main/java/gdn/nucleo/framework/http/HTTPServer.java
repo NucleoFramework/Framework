@@ -9,7 +9,7 @@ import io.undertow.util.Headers;
  * Created by Nathaniel on 11/20/2016.
  */
 public class HTTPServer implements Runnable {
-    Undertow server;
+    private Undertow server;
     public void setup(int port, String address) {
         server = Undertow.builder()
             .addHttpListener(port, address)

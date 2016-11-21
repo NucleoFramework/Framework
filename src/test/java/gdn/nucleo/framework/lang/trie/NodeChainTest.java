@@ -4,6 +4,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Nathaniel on 11/19/2016.
@@ -14,10 +16,12 @@ public class NodeChainTest {
         NodeChain nc = new NodeChain();
 
         Method m = this.getClass().getMethod("testNodeChainSize");
+        List<Method> a = new ArrayList<>();
+        a.add(m);
 
-        nc.addLink(m);
-        nc.addLink(m);
-        nc.addLink(m);
+        nc.addLink(a);
+        nc.addLink(a);
+        nc.addLink(a);
 
         assertEquals(nc.length, 3);
     }
@@ -27,10 +31,12 @@ public class NodeChainTest {
         NodeChain nc = new NodeChain();
 
         Method m = this.getClass().getMethod("testNodeChainSize");
+        List<Method> a = new ArrayList<>();
+        a.add(m);
 
-        nc.addLink(m);
-        nc.addLink(m);
-        nc.addLink(m);
+        nc.addLink(a);
+        nc.addLink(a);
+        nc.addLink(a);
 
         nc.next(); // should remove the first entry
 
@@ -43,14 +49,18 @@ public class NodeChainTest {
 
         Method a = this.getClass().getMethod("testNodeChainSize");
         Method b = this.getClass().getMethod("testNodeChainSizeAfterRemoval");
+        List<Method> al = new ArrayList<>();
+        al.add(a);
+        List<Method> bl = new ArrayList<>();
+        bl.add(b);
 
-        nc.addLink(a);
-        nc.addLink(b);
-        nc.addLink(a);
+        nc.addLink(al);
+        nc.addLink(bl);
+        nc.addLink(al);
 
-        assertEquals(nc.next().method, a);
-        assertEquals(nc.next().method, b);
-        assertEquals(nc.next().method, a);
+        assertEquals(nc.next().method.get(0), a);
+        assertEquals(nc.next().method.get(0), b);
+        assertEquals(nc.next().method.get(0), a);
     }
 
     @Test
@@ -65,8 +75,10 @@ public class NodeChainTest {
         NodeChain nc = new NodeChain();
 
         Method a = this.getClass().getMethod("testNodeChainEmpty");
+        List<Method> al = new ArrayList<>();
+        al.add(a);
 
-        nc.addLink(a);
+        nc.addLink(al);
 
         nc.next();
 
@@ -79,16 +91,20 @@ public class NodeChainTest {
 
         Method a = this.getClass().getMethod("testNodeChainLastEqualsNull");
         Method b = this.getClass().getMethod("testNodeChainRefill");
+        List<Method> al = new ArrayList<>();
+        al.add(a);
+        List<Method> bl = new ArrayList<>();
+        bl.add(b);
 
-        nc.addLink(a);
+        nc.addLink(al);
 
         nc.next();
 
-        nc.addLink(a);
-        nc.addLink(b);
+        nc.addLink(al);
+        nc.addLink(bl);
 
         nc.next();
 
-        assertEquals(nc.next().method, b);
+        assertEquals(nc.next().method.get(0), b);
     }
 }

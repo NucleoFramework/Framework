@@ -1,16 +1,18 @@
 package gdn.nucleo.framework.lang.trie;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Nathaniel on 11/19/2016.
  */
 public class NodeChain {
     public class Link{
-        public Link(Method m){
-            method = m;
+        public Link(List<Method> m){
+            method=new ArrayList<>(m);
         }
-        public Method method;
+        public List<Method> method = new ArrayList<>();
         public Link next=null;
     }
 
@@ -25,7 +27,7 @@ public class NodeChain {
     public boolean hasNext(){
         return current!=null;
     }
-    public void addLink(Method m){
+    public void addLink(List<Method> m){
         if(current==null && last==null) {
             last = new Link(m);
             current = last;

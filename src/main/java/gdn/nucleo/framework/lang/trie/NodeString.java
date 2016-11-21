@@ -1,18 +1,22 @@
 package gdn.nucleo.framework.lang.trie;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Nathaniel on 11/19/2016.
  */
 public class NodeString {
 
-    public Method method = null;
+    public List<Method> method = new ArrayList<>();
     public HashMap<String, NodeString> nodes = new HashMap<String, NodeString>();
 
     public NodeString(Method method){
-        this.method = method;
+        if(method!=null) {
+            this.method.add(method);
+        }
     }
 
     public NodeString nextString(String nextKey){
@@ -31,10 +35,7 @@ public class NodeString {
         nodes.put(entry, node);
         return true;
     }
-    public Class getMethodClass(){
-        return method.getDeclaringClass();
-    }
-    public Method getMethod(){
+    public List<Method> getMethods(){
         return method;
     }
 }
