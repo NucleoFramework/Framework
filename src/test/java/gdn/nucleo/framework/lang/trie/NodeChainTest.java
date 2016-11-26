@@ -15,8 +15,8 @@ public class NodeChainTest {
     public void testNodeChainSize() throws  Exception{
         NodeChain nc = new NodeChain();
 
-        Method m = this.getClass().getMethod("testNodeChainSize");
-        List<Method> a = new ArrayList<>();
+        Callable m = new Callable(this.getClass().getMethod("testNodeChainSize"));
+        List<Callable> a = new ArrayList<>();
         a.add(m);
 
         nc.addLink(a);
@@ -30,8 +30,8 @@ public class NodeChainTest {
     public void testNodeChainSizeAfterRemoval() throws  Exception{
         NodeChain nc = new NodeChain();
 
-        Method m = this.getClass().getMethod("testNodeChainSize");
-        List<Method> a = new ArrayList<>();
+        Callable m = new Callable(this.getClass().getMethod("testNodeChainSize"));
+        List<Callable> a = new ArrayList<>();
         a.add(m);
 
         nc.addLink(a);
@@ -47,20 +47,20 @@ public class NodeChainTest {
     public void testNodeChainContents() throws  Exception{
         NodeChain nc = new NodeChain();
 
-        Method a = this.getClass().getMethod("testNodeChainSize");
-        Method b = this.getClass().getMethod("testNodeChainSizeAfterRemoval");
-        List<Method> al = new ArrayList<>();
+        Callable a = new Callable(this.getClass().getMethod("testNodeChainSize"));
+        Callable b = new Callable(this.getClass().getMethod("testNodeChainSizeAfterRemoval"));
+        List<Callable> al = new ArrayList<>();
         al.add(a);
-        List<Method> bl = new ArrayList<>();
+        List<Callable> bl = new ArrayList<>();
         bl.add(b);
 
         nc.addLink(al);
         nc.addLink(bl);
         nc.addLink(al);
 
-        assertEquals(nc.next().method.get(0), a);
-        assertEquals(nc.next().method.get(0), b);
-        assertEquals(nc.next().method.get(0), a);
+        assertEquals(nc.next().getCallables().get(0), a);
+        assertEquals(nc.next().getCallables().get(0), b);
+        assertEquals(nc.next().getCallables().get(0), a);
     }
 
     @Test
@@ -74,8 +74,8 @@ public class NodeChainTest {
     public void testNodeChainLastEqualsNull() throws  Exception{
         NodeChain nc = new NodeChain();
 
-        Method a = this.getClass().getMethod("testNodeChainEmpty");
-        List<Method> al = new ArrayList<>();
+        Callable a = new Callable(this.getClass().getMethod("testNodeChainEmpty"));
+        List<Callable> al = new ArrayList<>();
         al.add(a);
 
         nc.addLink(al);
@@ -89,11 +89,11 @@ public class NodeChainTest {
     public void testNodeChainRefill() throws  Exception{
         NodeChain nc = new NodeChain();
 
-        Method a = this.getClass().getMethod("testNodeChainLastEqualsNull");
-        Method b = this.getClass().getMethod("testNodeChainRefill");
-        List<Method> al = new ArrayList<>();
+        Callable a = new Callable(this.getClass().getMethod("testNodeChainLastEqualsNull"));
+        Callable b = new Callable(this.getClass().getMethod("testNodeChainRefill"));
+        List<Callable> al = new ArrayList<>();
         al.add(a);
-        List<Method> bl = new ArrayList<>();
+        List<Callable> bl = new ArrayList<>();
         bl.add(b);
 
         nc.addLink(al);
@@ -105,6 +105,6 @@ public class NodeChainTest {
 
         nc.next();
 
-        assertEquals(nc.next().method.get(0), b);
+        assertEquals(nc.next().getCallables().get(0), b);
     }
 }

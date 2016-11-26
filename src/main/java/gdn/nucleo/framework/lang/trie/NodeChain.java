@@ -9,11 +9,14 @@ import java.util.List;
  */
 public class NodeChain {
     public class Link{
-        public Link(List<Method> m){
-            method=new ArrayList<>(m);
+        public Link(List<Callable> m){
+            callables=new ArrayList<>(m);
         }
-        public List<Method> method = new ArrayList<>();
+        public List<Callable> callables = new ArrayList<>();
         public Link next=null;
+        public List<Callable> getCallables() {
+            return callables;
+        }
     }
 
     public Link current;
@@ -27,7 +30,7 @@ public class NodeChain {
     public boolean hasNext(){
         return current!=null;
     }
-    public void addLink(List<Method> m){
+    public void addLink(List<Callable> m){
         if(current==null && last==null) {
             last = new Link(m);
             current = last;

@@ -10,7 +10,7 @@ public class TrieString {
     public TrieString(){
         root = new NodeString(null);
     }
-    public boolean addToTree(Method m, String... args){
+    public boolean addToTree(Callable m, String... args){
         if(args.length==0){
             return false;
         }
@@ -22,7 +22,7 @@ public class TrieString {
             if((tmp = current.nextString(args[i]))!=null){
                 current = tmp;
                 if((i+1)==size){
-                    tmp.method.add(m);
+                    tmp.getCallables().add(m);
                     return true;
                 }
             }else{
@@ -47,8 +47,8 @@ public class TrieString {
         int i=0;
         int size = args.length;
         while(i<size && (currentNode = currentNode.nextString(args[i]))!=null){
-            if(currentNode.getMethods().size()>0) {
-                chain.addLink(currentNode.getMethods());
+            if(currentNode.getCallables().size()>0) {
+                chain.addLink(currentNode.getCallables());
             }
             i++;
         }

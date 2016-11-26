@@ -20,18 +20,18 @@ public class TrieStringTest {
     public void testNoArgs() throws Exception{
         TrieString cache = new TrieString();
 
-        assertFalse(cache.addToTree(this.getClass().getMethod("testEmptyTrie")));
+        assertFalse(cache.addToTree(new Callable(this.getClass().getMethod("testEmptyTrie"))));
     }
 
     @Test
     public void testRepeatEntry() throws Exception{
         TrieString cache = new TrieString();
 
-        cache.addToTree(this.getClass().getMethod("testNoArgs"), "power");
+        cache.addToTree(new Callable(this.getClass().getMethod("testNoArgs")), "power");
 
-        assertTrue(cache.addToTree(this.getClass().getMethod("testRepeatEntry"), "power"));
+        assertTrue(cache.addToTree(new Callable(this.getClass().getMethod("testRepeatEntry")), "power"));
 
-        assertEquals(cache.buildChain("power").next().method.size(),2);
+        assertEquals(cache.buildChain("power").next().getCallables().size(),2);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TrieStringTest {
     public void testOutOfBoundTrieSearch() throws Exception{
         TrieString cache = new TrieString();
 
-        cache.addToTree(this.getClass().getMethod("testEmptyTrie"), "power");
+        cache.addToTree(new Callable(this.getClass().getMethod("testEmptyTrie")), "power");
 
         assertNull(cache.buildChain("power", "top"));
     }
@@ -53,7 +53,7 @@ public class TrieStringTest {
     public void testDepthOne() throws Exception{
         TrieString cache = new TrieString();
 
-        cache.addToTree(this.getClass().getMethod("testEmptyTrie"), "power");
+        cache.addToTree(new Callable(this.getClass().getMethod("testEmptyTrie")), "power");
 
         assertEquals(cache.buildChain("power").length, 1);
     }
@@ -62,7 +62,7 @@ public class TrieStringTest {
     public void testDepthTwo() throws Exception{
         TrieString cache = new TrieString();
 
-        assertTrue(cache.addToTree(this.getClass().getMethod("testEmptyTrie"), "super", "strong"));
+        assertTrue(cache.addToTree(new Callable(this.getClass().getMethod("testEmptyTrie")), "super", "strong"));
 
         assertEquals(cache.buildChain("super", "strong").length, 1);
     }
@@ -71,9 +71,9 @@ public class TrieStringTest {
     public void testDepthThree() throws Exception{
         TrieString cache = new TrieString();
 
-        assertTrue(cache.addToTree(this.getClass().getMethod("testEmptyTrie"), "do", "this", "now"));
+        assertTrue(cache.addToTree(new Callable(this.getClass().getMethod("testEmptyTrie")), "do", "this", "now"));
 
-        assertTrue(cache.addToTree(this.getClass().getMethod("testDepthThree"), "do", "this", "now", "this"));
+        assertTrue(cache.addToTree(new Callable(this.getClass().getMethod("testDepthThree")), "do", "this", "now", "this"));
 
         assertEquals(cache.buildChain("do", "this", "now").length, 1);
 
@@ -83,9 +83,9 @@ public class TrieStringTest {
     @Test
     public void testDepthVerifyOrder() throws Exception{
         TrieString cache = new TrieString();
-        Method a = this.getClass().getMethod("testEmptyTrie");
-        Method b = this.getClass().getMethod("testDepthTwo");
-        Method c = this.getClass().getMethod("testDepthThree");
+        Callable a = new Callable(this.getClass().getMethod("testEmptyTrie"));
+        Callable b = new Callable(this.getClass().getMethod("testDepthTwo"));
+        Callable c = new Callable(this.getClass().getMethod("testDepthThree"));
 
         assertTrue(cache.addToTree(a, "do", "this"));
         assertTrue(cache.addToTree(b, "do", "this", "now"));
@@ -93,17 +93,17 @@ public class TrieStringTest {
 
         NodeChain nc = cache.buildChain("do", "this", "now", "this");
 
-        assertEquals(nc.next().method.get(0), a);
-        assertEquals(nc.next().method.get(0), b);
-        assertEquals(nc.next().method.get(0), c);
+        assertEquals(nc.next().getCallables().get(0), a);
+        assertEquals(nc.next().getCallables().get(0), b);
+        assertEquals(nc.next().getCallables().get(0), c);
     }
 
     @Test
     public void testAddOutOfOrderChainInOrder() throws Exception{
         TrieString cache = new TrieString();
-        Method a = this.getClass().getMethod("testEmptyTrie");
-        Method b = this.getClass().getMethod("testDepthTwo");
-        Method c = this.getClass().getMethod("testDepthThree");
+        Callable a = new Callable(this.getClass().getMethod("testEmptyTrie"));
+        Callable b = new Callable(this.getClass().getMethod("testDepthTwo"));
+        Callable c = new Callable(this.getClass().getMethod("testDepthThree"));
 
         assertTrue(cache.addToTree(a, "do", "this"));
         assertTrue(cache.addToTree(c, "do", "this", "now", "this"));
@@ -111,9 +111,9 @@ public class TrieStringTest {
 
         NodeChain nc = cache.buildChain("do", "this", "now", "this");
 
-        assertEquals(nc.next().method.get(0), a);
-        assertEquals(nc.next().method.get(0), b);
-        assertEquals(nc.next().method.get(0), c);
+        assertEquals(nc.next().getCallables().get(0), a);
+        assertEquals(nc.next().getCallables().get(0), b);
+        assertEquals(nc.next().getCallables().get(0), c);
     }
 
     public class URITestHelper{
@@ -136,9 +136,9 @@ public class TrieStringTest {
         URITestHelper chainData = new URITestHelper();
 
         TrieString cache = new TrieString();
-        Method a = URITestHelper.class.getMethod("getAuth");
-        Method b = URITestHelper.class.getMethod("getUser");
-        Method c = URITestHelper.class.getMethod("doAction");
+        Callable a = new Callable(URITestHelper.class.getMethod("getAuth"));
+        Callable b = new Callable(URITestHelper.class.getMethod("getUser"));
+        Callable c = new Callable(URITestHelper.class.getMethod("doAction"));
 
         assertTrue(cache.addToTree(a, "auth"));
         assertTrue(cache.addToTree(b, "auth", "user"));
@@ -146,9 +146,9 @@ public class TrieStringTest {
 
         NodeChain nc = cache.buildChain("auth", "user", "like");
 
-        nc.next().method.get(0).invoke(chainData);
-        nc.next().method.get(0).invoke(chainData);
-        nc.next().method.get(0).invoke(chainData);
+        nc.next().getCallables().get(0).getMethod().invoke(chainData);
+        nc.next().getCallables().get(0).getMethod().invoke(chainData);
+        nc.next().getCallables().get(0).getMethod().invoke(chainData);
 
         assertEquals( chainData.user, 5);
         assertTrue(chainData.authed);
@@ -161,9 +161,9 @@ public class TrieStringTest {
         URITestHelper chainData = new URITestHelper();
 
         TrieString cache = new TrieString();
-        Method a = URITestHelper.class.getMethod("getAuth");
-        Method b = URITestHelper.class.getMethod("getUser");
-        Method c = URITestHelper.class.getMethod("doAction");
+        Callable a = new Callable(URITestHelper.class.getMethod("getAuth"));
+        Callable b = new Callable(URITestHelper.class.getMethod("getUser"));
+        Callable c = new Callable(URITestHelper.class.getMethod("doAction"));
 
         assertTrue(cache.addToTree(a, "do", "this"));
         assertTrue(cache.addToTree(c, "do", "this", "now", "this"));
@@ -171,7 +171,7 @@ public class TrieStringTest {
 
         NodeChain nc = cache.buildChain("do", "this", "now", "this");
         while(nc.hasNext()){
-            nc.next().method.get(0).invoke(chainData);
+            nc.next().getCallables().get(0).getMethod().invoke(chainData);
         }
         assertEquals( chainData.user, 5);
         assertTrue(chainData.authed);
